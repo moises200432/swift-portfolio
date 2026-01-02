@@ -43,7 +43,7 @@ const LinkedInProfile = () => {
               className="relative h-full min-h-96 lg:min-h-full bg-transparent flex items-center justify-center overflow-hidden"
             >
               <motion.img
-                src="/public/assets/programar.png"
+                src="assets/programar.png"
                 alt="Moisés Rojas - Perfil LinkedIn"
                 className="w-full h-full object-contain"
                 initial={{ scale: 0.5, opacity: 0, y: 50 }}
