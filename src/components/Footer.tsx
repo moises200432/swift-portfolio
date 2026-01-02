@@ -36,7 +36,7 @@ const Footer = () => {
 
         <div className="mt-8 pt-8 border-t border-border/50 text-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Juan Pérez. Todos los derechos reservados porque si y quiero ejej
+            © {new Date().getFullYear()} Juan Pérez. Todos los derechos reservados porque si y quiero ejej porque quiero y puedo
           </p>
         </div>
       </div>
