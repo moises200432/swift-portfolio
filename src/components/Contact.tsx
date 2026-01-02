@@ -1,13 +1,13 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { Mail, Phone, Send, CheckCircle } from "lucide-react";
 
 const contactInfo = [
   {
     icon: Phone,
-    label: "Teléfono",
-    value: "+52 55 1234 5678",
-    href: "tel:+5555123456778",
+    label: "WhatsApp",
+    value: "+51 951 012 633",
+    href: "https://wa.me/51951012633",
   },
   {
     icon: Mail,
@@ -15,22 +15,39 @@ const contactInfo = [
     value: "juan@example.com",
     href: "mailto:juan@example.com",
   },
-  {
-    icon: MapPin,
-    label: "Ubicación",
-    value: "Ciudad de México, MX",
-    href: "#",
-  },
 ];
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Crear el mensaje para WhatsApp
+    const whatsappMessage = `*Nuevo mensaje de contacto*%0A%0A*Nombre:* ${formData.name}%0A*Email:* ${formData.email}%0A*Mensaje:* ${formData.message}`;
+    const whatsappLink = `https://wa.me/51951012633?text=${whatsappMessage}`;
+    
+    // Abrir WhatsApp
+    window.open(whatsappLink, "_blank");
+    
+    // Mostrar confirmación
     setIsSubmitted(true);
+    setFormData({ name: "", email: "", message: "" });
     setTimeout(() => setIsSubmitted(false), 3000);
   };
 
@@ -64,6 +81,8 @@ const Contact = () => {
                 <motion.a
                   key={item.label}
                   href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
@@ -114,6 +133,9 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   placeholder="Tu nombre"
@@ -129,6 +151,9 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
                   placeholder="tu@email.com"
@@ -143,6 +168,9 @@ const Contact = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   required
                   rows={4}
                   className="w-full px-4 py-3 bg-secondary/50 border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"
@@ -162,7 +190,7 @@ const Contact = () => {
                 ) : (
                   <>
                     <Send className="w-5 h-5" />
-                    Enviar mensaje
+                    Enviar por WhatsApp
                   </>
                 )}
               </button>

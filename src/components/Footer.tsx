@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
             <a href="#hero" className="text-xl font-semibold gradient-text">
-              Juan Pérez
+              Moises Rojas
             </a>
             <p className="text-sm text-muted-foreground mt-1">
               Desarrollador Full Stack

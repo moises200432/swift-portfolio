@@ -10,12 +10,11 @@ import {
 } from "lucide-react";
 
 const technicalSkills = [
-  { name: "React / React Native", level: 95 },
-  { name: "Flutter / Dart", level: 90 },
-  { name: "Swift / iOS", level: 85 },
-  { name: "Node.js / Express", level: 88 },
-  { name: "TypeScript", level: 92 },
-  { name: "MongoDB / MySQL", level: 85 },
+  { name: "React", description: "Interfaces web modernas y rápidas", level: 98 },
+  { name: "Flutter", description: "Apps móviles multiplataforma", level: 95 },
+  { name: "Swift", description: "Aplicaciones nativas para iOS", level: 95 },
+  { name: "MySQL", description: "Bases de datos seguras", level: 80 },
+  { name: "Figma", description: "Diseño de interfaces profesionales", level: 100 },
 ];
 
 const softSkills = [
@@ -80,25 +79,34 @@ const Skills = () => {
             <h3 className="text-xl font-semibold text-foreground mb-6">
               Habilidades Técnicas
             </h3>
-            <div className="space-y-5">
+            <div className="space-y-3">
               {technicalSkills.map((skill, index) => (
                 <motion.div
                   key={skill.name}
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                  className="glass-card p-4 hover-glow flex items-start gap-3"
                 >
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm text-foreground">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                  </div>
-                  <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={isInView ? { width: `${skill.level}%` } : {}}
-                      transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
-                      className="h-full bg-gradient-to-r from-primary to-glow-secondary rounded-full"
-                    />
+                  <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-center mb-2">
+                      <h4 className="font-medium text-foreground text-sm">
+                        {skill.name}
+                      </h4>
+                      <span className="text-xs text-muted-foreground">{skill.level}%</span>
+                    </div>
+                    <div className="h-1.5 bg-secondary rounded-full overflow-hidden mb-2">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={isInView ? { width: `${skill.level}%` } : {}}
+                        transition={{ duration: 1, delay: 0.5 + index * 0.1 }}
+                        className="h-full bg-gradient-to-r from-primary to-blue-500 rounded-full"
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {skill.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
