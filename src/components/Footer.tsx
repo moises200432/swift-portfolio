@@ -1,8 +1,8 @@
 import { Github, Linkedin, Twitter } from "lucide-react";
 
 const socialLinks = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Github, href: "https://github.com/Ameri50", label: "GitHub" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/moises-rojas-864b6a333/?trk=opento_sprofile_goalscard", label: "LinkedIn" },
   { icon: Twitter, href: "#", label: "Twitter" },
 ];
 
@@ -19,13 +19,14 @@ const Footer = () => {
               Desarrollador Full Stack
             </p>
           </div>
-
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-3 glass-card hover-glow text-muted-foreground hover:text-primary transition-colors"
               >
                 <social.icon className="w-5 h-5" />
@@ -33,10 +34,9 @@ const Footer = () => {
             ))}
           </div>
         </div>
-
         <div className="mt-8 pt-8 border-t border-border/50 text-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Juan Pérez. Todos los derechos reservados porque si y quiero ejej porque quiero y puedo
+            © {new Date().getFullYear()} Moisés Rojas. Todos los derechos reservados.
           </p>
         </div>
       </div>
