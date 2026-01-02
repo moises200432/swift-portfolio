@@ -58,48 +58,59 @@ const About = () => {
 
         {/* Sección principal - Descripción + Features */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
-          {/* Texto descriptivo */}
+          {/* Imagen descriptiva */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex items-center justify-center"
           >
-            <p className="text-muted-foreground/70">
-              Siempre estoy aprendiendo nuevas tecnologías y mejorando mis
-              habilidades para ofrecer las mejores soluciones.
-            </p>
+            <div className="relative w-full rounded-lg overflow-hidden glass-card hover-glow">
+              <img
+                src="/assets/yo.png"
+                alt="Aprendiendo tecnologías"
+                className="w-full h-auto object-contain"
+              />
+            </div>
           </motion.div>
 
-          {/* Features con iconos */}
+          {/* Texto descriptivo + Features */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid gap-4"
           >
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
-                className="glass-card p-6 hover-glow"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-lg bg-primary/10">
-                    <feature.icon className="w-6 h-6 text-primary" />
+            <p className="text-muted-foreground/70 mb-8 text-lg">
+              Siempre estoy aprendiendo nuevas tecnologías y mejorando mis
+              habilidades para ofrecer las mejores soluciones.
+            </p>
+
+            {/* Features con iconos */}
+            <div className="grid gap-4">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                  className="glass-card p-6 hover-glow"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 rounded-lg bg-primary/10">
+                      <feature.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {feature.description}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
 
