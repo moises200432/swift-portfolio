@@ -119,7 +119,7 @@ const LinkedInProfile = () => {
                   Habilidades clave
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {["React", "Node.js", "TypeScript", "Desarrollo Web", "Mobile"].map((skill, i) => (
+                  {["React", "Node.js", "Swift","Flutter","figma","Supabase","Firebase"].map((skill, i) => (
                     <motion.span
                       key={i}
                       initial={{ opacity: 0, scale: 0.8 }}
