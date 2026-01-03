@@ -1,72 +1,62 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { ExternalLink, Github, Image as ImageIcon } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 
+// Importa tus imágenes locales aquí
+// import ecommerceImg from './assets/ecommerce.jpg';
+// import taskManagerImg from './assets/taskmanager.jpg';
+// import fitnessImg from './assets/fitness.jpg';
+// import restaurantImg from './assets/restaurant.jpg';
+// import socialImg from './assets/social.jpg';
+// import portfolioImg from './assets/portfolio.jpg';
 const projects = [
   {
     title: "E-Commerce App",
     description:
-      "Aplicación móvil de comercio electrónico con carrito, pagos integrados y gestión de pedidos en tiempo real.",
-    technologies: ["Flutter", "Firebase", "Stripe"],
-    github: "#",
-    demo: "#",
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+      "Una aplicación móvil de comercio electrónico desarrollada con Flutter. Incluye funcionalidades de navegación de productos, carrito de compras y una interfaz de usuario moderna.",
+    technologies: ["Flutter", "Dart"],
+    github: "https://github.com/Ameri50/proyectofinal1",
+    demo: "https://github.com/Ameri50/proyectofinal1",
+    image: "/assets/proyecto1.png",
     color: "from-purple-500 to-pink-500"
   },
   {
-    title: "Task Manager Pro",
+    title: "Task Manager App",
     description:
-      "Herramienta de productividad para equipos con tableros Kanban, asignación de tareas y reportes.",
-    technologies: ["React", "Node.js", "MongoDB"],
-    github: "#",
-    demo: "#",
-    image: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=800&q=80",
+      "Aplicación de gestión de tareas que permite a los usuarios organizar sus pendientes. Desarrollada como una de las primeras aplicaciones interactivas utilizando React.",
+    technologies: ["React", "JavaScript", "CSS3"],
+    github: "https://github.com/Ameri50/primera-aplicaciond-de-10",
+    demo: "https://micodigo.onrender.com/",
+    image: "/assets/proyecto2.png",
     color: "from-blue-500 to-cyan-500"
   },
   {
-    title: "Fitness Tracker",
+    title: "Peru Logistics Express",
     description:
-      "App de seguimiento de ejercicios con estadísticas, rutinas personalizadas y sincronización con wearables.",
-    technologies: ["Swift", "HealthKit", "CoreData"],
-    github: "#",
-    demo: "#",
-    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
+      "Plataforma logística diseñada para el seguimiento y gestión de envíos en Perú. Optimiza la visualización de rutas y estados de entrega para operadores.",
+    technologies: ["React", "Node.js", "Express", "MongoDB"],
+    github: "https://github.com/Ameri50/peru-logistics-express",
+    demo: "https://peru-logistics-express-lima06.onrender.com/",
+    image: "/assets/proyecto3.png",
     color: "from-green-500 to-emerald-500"
   },
   {
-    title: "Restaurant Dashboard",
+    title: "Mi Código Dashboard",
     description:
-      "Panel de administración para restaurantes con gestión de menús, pedidos y análisis de ventas.",
-    technologies: ["React", "Express", "MySQL"],
-    github: "#",
-    demo: "#",
-    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80",
+      "Panel de administración y gestión de datos. Enfocado en la visualización estructurada de información y control de usuarios para aplicaciones web.",
+    technologies: ["JavaScript", "HTML5", "Tailwind CSS"],
+    github: "https://github.com/DukoMaster2004/micodigo",
+    demo: "https://micodigo.onrender.com/",
+    image: "/assets/proyecto4.png",
     color: "from-orange-500 to-red-500"
-  },
-  {
-    title: "Social Media App",
-    description:
-      "Red social móvil con publicaciones, stories, mensajería en tiempo real y notificaciones push.",
-    technologies: ["React Native", "GraphQL", "AWS"],
-    github: "#",
-    demo: "#",
-    image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-    color: "from-indigo-500 to-purple-500"
-  },
-  {
-    title: "Portfolio Generator",
-    description:
-      "Plataforma web para crear portafolios profesionales con plantillas personalizables.",
-    technologies: ["Next.js", "Tailwind", "Prisma"],
-    github: "#",
-    demo: "#",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-    color: "from-teal-500 to-blue-500"
-  },
+  }
 ];
+ 
+
 
 const ProjectCard = ({ project, index }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const cardRef = useRef(null);
 
   const handleMouseMove = (e) => {
@@ -105,14 +95,24 @@ const ProjectCard = ({ project, index }) => {
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Imagen de fondo con overlay */}
-        <div className="relative h-48 overflow-hidden">
-          <motion.img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover"
-            animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          />
+        <div className="relative h-48 overflow-hidden bg-gray-800">
+          {!imageError ? (
+            <motion.img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover"
+              animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-gray-500">
+              <div className="text-center">
+                <div className="text-4xl mb-2">📁</div>
+                <div className="text-xs">Imagen no encontrada</div>
+              </div>
+            </div>
+          )}
           <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-60 mix-blend-multiply`} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
           
@@ -158,6 +158,8 @@ const ProjectCard = ({ project, index }) => {
           <div className="flex gap-3 pt-4 border-t border-white/10">
             <motion.a
               href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-all duration-300 border border-white/10 hover:border-white/30"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
@@ -168,6 +170,8 @@ const ProjectCard = ({ project, index }) => {
             </motion.a>
             <motion.a
               href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white text-sm font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-purple-500/50"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
