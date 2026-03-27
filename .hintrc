@@ -7,6 +7,7 @@
     "axe/name-role-value": "off",
     "typescript-config/strict": "off",
     "typescript-config/consistent-casing": "off",
-    "typescript-config/is-valid": "off"
+    "typescript-config/is-valid": "off",
+    "compat-api/css": "off"
   }
 }
