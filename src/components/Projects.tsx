@@ -2,13 +2,6 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ExternalLink, Github } from "lucide-react";
 
-// Importa tus imágenes locales aquí
-// import ecommerceImg from './assets/ecommerce.jpg';
-// import taskManagerImg from './assets/taskmanager.jpg';
-// import fitnessImg from './assets/fitness.jpg';
-// import restaurantImg from './assets/restaurant.jpg';
-// import socialImg from './assets/social.jpg';
-// import portfolioImg from './assets/portfolio.jpg';
 const projects = [
   {
     title: "E-Commerce App",
@@ -49,10 +42,18 @@ const projects = [
     demo: "https://micodigo.onrender.com/",
     image: "/assets/proyecto4.png",
     color: "from-orange-500 to-red-500"
+  },
+  {
+    title: "Proyecto Hackathon",
+    description:
+      "Proyecto web desarrollado para un hackathon, construido con HTML, CSS y JavaScript vanilla. Presenta una interfaz moderna con múltiples iteraciones de mejora y 19 deployments en producción vía Vercel.",
+    technologies: ["HTML5", "CSS3", "JavaScript"],
+    github: "https://github.com/Ameri50/proyecto-hackathon",
+    demo: "https://proyecto-hackathon-x7kz.vercel.app",
+    image: "/assets/proyecto5.png",
+    color: "from-yellow-500 to-orange-500"
   }
 ];
- 
-
 
 const ProjectCard = ({ project, index }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -68,7 +69,6 @@ const ProjectCard = ({ project, index }) => {
     const centerY = rect.height / 2;
     const rotateX = (y - centerY) / 10;
     const rotateY = (centerX - x) / 10;
-
     cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
   };
 
@@ -91,11 +91,11 @@ const ProjectCard = ({ project, index }) => {
     >
       <div
         ref={cardRef}
-        className="relative bg-white/5 backdrop-blur-lg rounded-2xl overflow-hidden border border-white/10 transition-all duration-300 ease-out h-full"
+        className="relative bg-card/60 backdrop-blur-lg rounded-2xl overflow-hidden border border-border transition-all duration-300 ease-out h-full"
         style={{ transformStyle: "preserve-3d" }}
       >
-        {/* Imagen de fondo con overlay */}
-        <div className="relative h-48 overflow-hidden bg-gray-800">
+        {/* Imagen */}
+        <div className="relative h-48 overflow-hidden bg-muted">
           {!imageError ? (
             <motion.img
               src={project.image}
@@ -106,7 +106,7 @@ const ProjectCard = ({ project, index }) => {
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-500">
+            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
               <div className="text-center">
                 <div className="text-4xl mb-2">📁</div>
                 <div className="text-xs">Imagen no encontrada</div>
@@ -115,8 +115,8 @@ const ProjectCard = ({ project, index }) => {
           )}
           <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-60 mix-blend-multiply`} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-          
-          {/* Badge flotante animado */}
+
+          {/* Badge */}
           <motion.div
             className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs text-white font-medium border border-white/30"
             animate={isHovered ? { y: -5, scale: 1.05 } : { y: 0, scale: 1 }}
@@ -128,23 +128,23 @@ const ProjectCard = ({ project, index }) => {
 
         {/* Contenido */}
         <div className="p-6 relative" style={{ transform: "translateZ(20px)" }}>
-          <h3 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-purple-400 transition-all duration-300">
+          <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-500 transition-all duration-300">
             {project.title}
           </h3>
-          
-          <p className="text-gray-300 text-sm mb-4 line-clamp-3">
+
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
             {project.description}
           </p>
 
-          {/* Tags de tecnologías con animación */}
+          {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {project.technologies.map((tech, i) => (
               <motion.span
                 key={tech}
-                className="px-3 py-1 text-xs rounded-full bg-white/10 text-white border border-white/20 backdrop-blur-sm"
-                whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.2)" }}
+                className="px-3 py-1 text-xs rounded-full bg-secondary text-foreground border border-border backdrop-blur-sm"
+                whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.2 }}
-                style={{ 
+                style={{
                   transform: isHovered ? `translateZ(${30 + i * 5}px)` : "translateZ(0px)",
                   transition: "transform 0.3s ease-out"
                 }}
@@ -154,13 +154,13 @@ const ProjectCard = ({ project, index }) => {
             ))}
           </div>
 
-          {/* Botones con efecto hover mejorado */}
-          <div className="flex gap-3 pt-4 border-t border-white/10">
+          {/* Botones */}
+          <div className="flex gap-3 pt-4 border-t border-border">
             <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm font-medium transition-all duration-300 border border-white/10 hover:border-white/30"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-secondary hover:bg-accent text-foreground text-sm font-medium transition-all duration-300 border border-border hover:border-primary/50"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               style={{ transform: "translateZ(40px)" }}
@@ -183,11 +183,11 @@ const ProjectCard = ({ project, index }) => {
           </div>
         </div>
 
-        {/* Brillo animado en hover */}
+        {/* Brillo hover */}
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
           style={{
-            background: "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1), transparent 70%)",
+            background: "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.07), transparent 70%)",
           }}
           animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
         />
@@ -201,10 +201,10 @@ const Projects = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="projects" className="relative min-h-screen py-20 bg-gradient-to-b from-gray-900 via-black to-gray-900" ref={ref}>
+    <section id="projects" className="relative min-h-screen py-20 bg-background" ref={ref}>
       {/* Efectos de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
       </div>
 
@@ -221,15 +221,16 @@ const Projects = () => {
             transition={{ duration: 0.5, type: "spring" }}
             className="inline-block mb-4"
           >
-            <span className="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm rounded-full text-sm text-blue-400 border border-blue-500/30">
+            <span className="px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full text-sm text-primary border border-primary/30">
               💼 Mi Trabajo
             </span>
           </motion.div>
-          
-          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-purple-100">
+
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary/80 to-purple-500">
             Proyectos Destacados
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Una selección de proyectos en los que he trabajado, combinando diseño y funcionalidad
           </p>
         </motion.div>

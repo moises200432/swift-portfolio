@@ -47,14 +47,14 @@ const LinkedInProfile = () => {
                 alt="Moisés Rojas - Perfil LinkedIn"
                 className="w-full h-full object-contain"
                 initial={{ scale: 0.5, opacity: 0, y: 50 }}
-                animate={isInView ? { 
-                  scale: 1, 
+                animate={isInView ? {
+                  scale: 1,
                   opacity: 1,
                   y: 0,
                   x: [0, 30, -30, 20, -20, 0],
                   rotateZ: [0, 2, -2, 1, -1, 0]
                 } : {}}
-                transition={{ 
+                transition={{
                   default: { duration: 0.8, delay: 0.4, ease: "easeOut" },
                   x: {
                     duration: 6,
@@ -89,23 +89,24 @@ const LinkedInProfile = () => {
                   <p className="text-xl font-semibold">Desarrollador Full Stack</p>
                 </div>
                 <p className="text-muted-foreground text-lg leading-relaxed">
-                  Especialista en desarrollo web y móvil con tecnologías modernas. 
+                  Especialista en desarrollo web y móvil con tecnologías modernas.
                   Comprometido con la calidad de código y la innovación tecnológica.
                 </p>
               </div>
 
               {/* Location & Contact */}
-              <div className="space-y-4 mb-10 pb-10 border-b border-white/10">
+              {/* ✅ Cambiado border-white/10 → border-border/50 */}
+              <div className="space-y-4 mb-10 pb-10 border-b border-border/50">
                 <div className="flex items-center gap-3 text-muted-foreground group">
                   <MapPin className="w-5 h-5 text-blue-600 flex-shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="group-hover:text-foreground transition-colors">
-                    En todos lados 
+                    En todos lados
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-muted-foreground group">
                   <Mail className="w-5 h-5 text-blue-600 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <a 
-                    href="mailto:moises@example.com"
+                  <a
+                    href="mailto:mproyectos352@gmail.com"
                     className="hover:text-blue-600 transition-colors"
                   >
                     mproyectos352@gmail.com
@@ -119,13 +120,13 @@ const LinkedInProfile = () => {
                   Habilidades clave
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {["React", "Node.js", "Swift","Flutter","figma","Supabase","Firebase"].map((skill, i) => (
+                  {["React", "Node.js", "Swift", "Flutter", "Figma", "Supabase", "Firebase"].map((skill, i) => (
                     <motion.span
                       key={i}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={isInView ? { opacity: 1, scale: 1 } : {}}
                       transition={{ duration: 0.3, delay: 0.6 + i * 0.05 }}
-                      className="px-4 py-2 rounded-full bg-blue-600/20 text-blue-400 text-sm font-medium border border-blue-600/30 hover:border-blue-600/60 hover:bg-blue-600/30 transition-all"
+                      className="px-4 py-2 rounded-full bg-blue-600/20 text-blue-600 dark:text-blue-400 text-sm font-medium border border-blue-600/30 hover:border-blue-600/60 hover:bg-blue-600/30 transition-all"
                     >
                       {skill}
                     </motion.span>
@@ -153,7 +154,7 @@ const LinkedInProfile = () => {
           </div>
         </motion.div>
 
-        {/* Stats or Additional Info */}
+        {/* Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

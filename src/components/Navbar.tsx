@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Search, X } from "lucide-react";
+import { Search, X, Sun, Moon } from "lucide-react";
 
 const navItems = [
   { label: "Inicio", href: "#hero" },
@@ -25,6 +25,27 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [isDark, setIsDark] = useState(() => {
+    // Lee la preferencia guardada o usa la del sistema
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved) return saved === "dark";
+      return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    return true;
+  });
+
+  // Aplica la clase "dark" al <html> cada vez que cambia isDark
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,7 +94,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo más grande */}
+        {/* Logo */}
         <a href="#hero" className="flex items-center gap-2">
           <img
             src="/assets/logo.png"
@@ -96,7 +117,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Search and Contact */}
+        {/* Search, Dark Mode Toggle y Contact */}
         <div className="flex items-center gap-4">
           {/* Search Button */}
           <button
@@ -110,6 +131,29 @@ const Navbar = () => {
               <Search className="w-5 h-5" />
             )}
           </button>
+
+          {/* Dark / Light Mode Toggle */}
+          <motion.button
+            onClick={() => setIsDark(!isDark)}
+            aria-label="Cambiar modo"
+            className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors duration-200"
+            whileTap={{ scale: 0.85 }}
+            whileHover={{ scale: 1.1 }}
+          >
+            <motion.div
+              key={isDark ? "moon" : "sun"}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isDark ? (
+                <Sun className="w-5 h-5 text-yellow-400" />
+              ) : (
+                <Moon className="w-5 h-5 text-slate-600" />
+              )}
+            </motion.div>
+          </motion.button>
 
           {/* Contact Button */}
           <a
