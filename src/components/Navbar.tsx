@@ -1,14 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { Search, X, Sun, Moon, Command, ExternalLink } from "lucide-react";
+import { Search, X, Sun, Moon, Command, ExternalLink, Menu } from "lucide-react";
 
 const navItems = [
-  { label: "Inicio", href: "#hero" },
-  { label: "Sobre mí", href: "#about" },
-  { label: "Proyectos", href: "#projects" },
-  { label: "Educación", href: "#education" },
-  { label: "Habilidades", href: "#skills" },
-  { label: "Contacto", href: "#contact" },
+  { label: "Inicio", href: "#hero", icon: "🏠" },
+  { label: "Sobre mí", href: "#about", icon: "👤" },
+  { label: "Proyectos", href: "#projects", icon: "💼" },
+  { label: "Educación", href: "#education", icon: "🎓" },
+  { label: "Habilidades", href: "#skills", icon: "⚡" },
+  { label: "Contacto", href: "#contact", icon: "✉️" },
 ];
 
 const searchSections = [
@@ -70,6 +70,7 @@ const projects = [
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [navResults, setNavResults] = useState(searchSections);
@@ -99,10 +100,23 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Cierra el menú móvil al cambiar tamaño a desktop
+  useEffect(() => {
+    const handleResize = () => { if (window.innerWidth >= 768) setIsMobileOpen(false); };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Bloquea scroll del body cuando el menú móvil está abierto
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isMobileOpen]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") { e.preventDefault(); setIsSearchOpen((p) => !p); }
-      if (e.key === "Escape") setIsSearchOpen(false);
+      if (e.key === "Escape") { setIsSearchOpen(false); setIsMobileOpen(false); }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -113,33 +127,15 @@ const Navbar = () => {
     else { setSearchQuery(""); setNavResults(searchSections); setProjectResults([]); }
   }, [isSearchOpen]);
 
-  // Búsqueda global: secciones + proyectos por cualquier palabra
   useEffect(() => {
     const q = searchQuery.trim().toLowerCase();
-
-    if (!q) {
-      setNavResults(searchSections);
-      setProjectResults([]);
-      setActiveIndex(0);
-      return;
-    }
-
-    // Secciones nav
+    if (!q) { setNavResults(searchSections); setProjectResults([]); setActiveIndex(0); return; }
     const filteredNav = searchSections.filter((s) =>
-      s.label.toLowerCase().includes(q) ||
-      s.keywords.some((k) => k.includes(q) || q.includes(k))
+      s.label.toLowerCase().includes(q) || s.keywords.some((k) => k.includes(q) || q.includes(k))
     );
-
-    // Proyectos: busca en título, descripción Y cada tecnología
-    const filteredProjects = projects.filter((p) => {
-      const haystack = [
-        p.title,
-        p.description,
-        ...p.technologies,
-      ].join(" ").toLowerCase();
-      return haystack.includes(q);
-    });
-
+    const filteredProjects = projects.filter((p) =>
+      [p.title, p.description, ...p.technologies].join(" ").toLowerCase().includes(q)
+    );
     setNavResults(filteredNav);
     setProjectResults(filteredProjects);
     setActiveIndex(0);
@@ -155,6 +151,7 @@ const Navbar = () => {
     if (el) el.scrollIntoView({ behavior: "smooth" });
     setActiveNav(item.href);
     setIsSearchOpen(false);
+    setIsMobileOpen(false);
   };
 
   const handleKeyNav = (e) => {
@@ -183,7 +180,7 @@ const Navbar = () => {
             />
           </motion.a>
 
-          {/* Nav links */}
+          {/* Nav links — solo desktop */}
           <ul className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -241,7 +238,7 @@ const Navbar = () => {
               </AnimatePresence>
             </motion.button>
 
-            {/* Contact */}
+            {/* Contact — solo desktop */}
             <motion.a
               href="#contact"
               className="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:brightness-110"
@@ -249,11 +246,91 @@ const Navbar = () => {
             >
               Contactar
             </motion.a>
+
+            {/* Hamburguesa — solo móvil */}
+            <motion.button
+              onClick={() => setIsMobileOpen((p) => !p)}
+              aria-label="Abrir menú"
+              className="md:hidden p-2.5 rounded-xl border border-border/50 bg-secondary/60 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all duration-200"
+              whileTap={{ scale: 0.9 }}
+            >
+              <AnimatePresence mode="wait">
+                {isMobileOpen ? (
+                  <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <X className="w-5 h-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <Menu className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Search Modal */}
+      {/* ── Menú móvil ── */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+              onClick={() => setIsMobileOpen(false)}
+            />
+
+            {/* Panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-[72px] left-4 right-4 z-40 md:hidden"
+            >
+              <div className="bg-background/95 backdrop-blur-2xl border border-border rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
+                <nav className="p-2">
+                  {navItems.map((item, i) => (
+                    <motion.a
+                      key={item.href}
+                      href={item.href}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      onClick={() => { setActiveNav(item.href); setIsMobileOpen(false); const el = document.querySelector(item.href); if (el) el.scrollIntoView({ behavior: "smooth" }); }}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-150 ${
+                        activeNav === item.href
+                          ? "bg-primary/10 border border-primary/20 text-primary"
+                          : "text-foreground hover:bg-secondary/70 border border-transparent"
+                      }`}
+                    >
+                      <span className="text-lg leading-none">{item.icon}</span>
+                      <span className="text-sm font-medium">{item.label}</span>
+                      {activeNav === item.href && (
+                        <motion.span layoutId="mobile-pill-dot" className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
+                      )}
+                    </motion.a>
+                  ))}
+                </nav>
+
+                {/* Footer del menú móvil */}
+                <div className="px-4 py-3 border-t border-border/60">
+                  <a
+                    href="#contact"
+                    onClick={() => setIsMobileOpen(false)}
+                    className="flex items-center justify-center w-full px-4 py-3 rounded-xl bg-primary text-primary-foreground text-sm font-semibold shadow-lg shadow-primary/25 hover:brightness-110 transition-all"
+                  >
+                    ✉️ Contactar
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* ── Search Modal ── */}
       <AnimatePresence>
         {isSearchOpen && (
           <>
@@ -271,8 +348,6 @@ const Navbar = () => {
               className="fixed top-[12%] left-1/2 -translate-x-1/2 z-[70] w-full max-w-lg px-4"
             >
               <div className="bg-background/95 backdrop-blur-2xl border border-border rounded-2xl shadow-2xl shadow-black/30 overflow-hidden">
-
-                {/* Input */}
                 <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border/60">
                   <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
                   <input
@@ -295,10 +370,7 @@ const Navbar = () => {
                   </div>
                 </div>
 
-                {/* Results */}
                 <div className="p-2 max-h-80 overflow-y-auto">
-
-                  {/* Nav sections */}
                   {navResults.length > 0 && (
                     <div className="mb-2">
                       <p className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
@@ -317,9 +389,7 @@ const Navbar = () => {
                             }`}
                           >
                             <span className="text-lg leading-none">{result.icon}</span>
-                            <span className={`text-sm font-medium flex-1 ${activeIndex === gi ? "text-primary" : "text-foreground"}`}>
-                              {result.label}
-                            </span>
+                            <span className={`text-sm font-medium flex-1 ${activeIndex === gi ? "text-primary" : "text-foreground"}`}>{result.label}</span>
                             {activeIndex === gi && <span className="text-[10px] text-primary/70 font-mono">↵</span>}
                           </motion.button>
                         );
@@ -327,7 +397,6 @@ const Navbar = () => {
                     </div>
                   )}
 
-                  {/* Project results */}
                   {projectResults.length > 0 && (
                     <div>
                       <p className="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">
@@ -345,17 +414,12 @@ const Navbar = () => {
                               activeIndex === gi ? "bg-primary/10 border border-primary/20" : "hover:bg-secondary/70 border border-transparent"
                             }`}
                           >
-                            {/* Color avatar */}
                             <div className={`w-9 h-9 rounded-lg bg-gradient-to-br ${project.color} flex-shrink-0 flex items-center justify-center text-white text-sm font-bold shadow-sm`}>
                               {project.title.charAt(0)}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <p className={`text-sm font-medium truncate ${activeIndex === gi ? "text-primary" : "text-foreground"}`}>
-                                {project.title}
-                              </p>
-                              <p className="text-[11px] text-muted-foreground truncate">
-                                {project.technologies.join(" · ")}
-                              </p>
+                              <p className={`text-sm font-medium truncate ${activeIndex === gi ? "text-primary" : "text-foreground"}`}>{project.title}</p>
+                              <p className="text-[11px] text-muted-foreground truncate">{project.technologies.join(" · ")}</p>
                             </div>
                             <ExternalLink className="w-3.5 h-3.5 text-muted-foreground/40 flex-shrink-0" />
                           </motion.button>
@@ -364,21 +428,17 @@ const Navbar = () => {
                     </div>
                   )}
 
-                  {/* No results */}
                   {allResults.length === 0 && searchQuery && (
                     <div className="py-10 text-center">
                       <p className="text-2xl mb-2">🔍</p>
                       <p className="text-sm text-muted-foreground">
                         Sin resultados para <span className="text-foreground font-medium">"{searchQuery}"</span>
                       </p>
-                      <p className="text-xs text-muted-foreground/50 mt-1">
-                        Prueba con tecnología, nombre o descripción
-                      </p>
+                      <p className="text-xs text-muted-foreground/50 mt-1">Prueba con tecnología, nombre o descripción</p>
                     </div>
                   )}
                 </div>
 
-                {/* Footer */}
                 <div className="px-4 py-2.5 border-t border-border/60 flex items-center gap-4 text-[10px] text-muted-foreground/50 font-mono">
                   <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border">↑↓</kbd> navegar</span>
                   <span className="flex items-center gap-1"><kbd className="px-1.5 py-0.5 rounded bg-secondary border border-border">↵</kbd> ir</span>
