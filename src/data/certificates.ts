@@ -48,4 +48,22 @@ export interface Certificate {
       skills: ["HTML", "CSS"],
       image: "/assets/certificadoenter01.png",
     },
+    {
+      id: 5,
+      type: "certificado",
+      title: "Inglés General – Nivel Intermedio (B1)",
+      institution: "Conversa Language School by Tecsup",
+      date: "Septiembre 2025",
+      description: "Certificado de culminación del nivel Intermedio (B1) con una duración de 240 horas.",
+      image: "/assets/ingles.png",
+    },
+    {
+      id: 6,
+      type: "constancia",
+      title: "Constancia de Egresado – Diseño y Desarrollo de Software",
+      institution: "TECSUP N° 1 – Filial Trujillo",
+      date: "Agosto 2026",
+      description: "Acredita la culminación de seis ciclos de estudios y el egreso de la carrera de Diseño y Desarrollo de Software.",
+      image: "/assets/constanciadeegresado.png",
+    },
   ]; 

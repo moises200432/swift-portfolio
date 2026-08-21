@@ -52,6 +52,16 @@ const projects = [
     demo: "https://proyecto-hackathon-x7kz.vercel.app",
     image: "/assets/proyecto5.png",
     color: "from-yellow-500 to-orange-500"
+  },
+  {
+    title: "DocuSafe",
+    description:
+      "Billetera privada de documentos para iPhone que permite escanear, cifrar y proteger documentos personales con Face ID.",
+    technologies: ["Swift", "SwiftUI", "SwiftData", "CryptoKit", "VisionKit"],
+    github: "https://github.com/Ameri50/proyect.personal",
+    demo: "https://github.com/Ameri50/proyect.personal",
+    image: "/assets/programar.png",
+    color: "from-cyan-500 to-blue-500"
   }
 ];
 
