@@ -14,6 +14,16 @@ const projects = [
     color: "from-purple-500 to-pink-500"
   },
   {
+    title: "Version Flutter",
+    description:
+      "Aplicación multiplataforma creada con Flutter y Dart, con estructura lista para evolucionar en Android, iOS, web, Windows y macOS.",
+    technologies: ["Flutter", "Dart"],
+    github: "https://github.com/Ameri50/version-flutter",
+    demo: "https://github.com/Ameri50/version-flutter",
+    image: "/assets/flutter.png",
+    color: "from-sky-500 to-blue-600"
+  },
+  {
     title: "Task Manager App",
     description:
       "Aplicación de gestión de tareas que permite a los usuarios organizar sus pendientes. Desarrollada como una de las primeras aplicaciones interactivas utilizando React.",
