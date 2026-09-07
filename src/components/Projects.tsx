@@ -90,7 +90,7 @@ const projects = [
     technologies: ["HTML5", "CSS3", "JavaScript"],
     github: "https://github.com/Ameri50/proyecto-hackathon",
     demo: "https://proyecto-hackathon-x7kz.vercel.app",
-    image: "/assets/proyecto5.png",
+    image: "/assets/HACKATON.png",
     color: "from-yellow-500 to-orange-500"
   },
   {
