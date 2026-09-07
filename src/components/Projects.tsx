@@ -49,6 +49,36 @@ const projects = [
     demo: "https://micodigo.onrender.com/",
     image: "/assets/proyecto4.png",
     color: "from-orange-500 to-red-500"
+  },
+  {
+    title: "Biblia RV1909 (iOS)",
+    description:
+      "App de lectura bíblica offline en SwiftUI, con los 66 libros de la Reina-Valera 1909 organizados por categoría canónica, sistema de notas con inserción de versículos y persistencia con SwiftData.",
+    technologies: ["Swift", "SwiftUI", "SwiftData"],
+    github: "https://github.com/Ameri50/bibliaterminada",
+    demo: "https://github.com/Ameri50/bibliaterminada",
+    image: "/assets/proyecto5.png",
+    color: "from-indigo-500 to-blue-500"
+  },
+  {
+    title: "Biblia Moderna (Android)",
+    description:
+      "Versión Flutter offline de la Reina-Valera 1909, con búsqueda por texto y referencia, favoritos y resaltado persistentes, lectura en voz alta y chat bíblico opcional con Gemini.",
+    technologies: ["Flutter", "Dart"],
+    github: "https://github.com/Ameri50/biblia-version-android",
+    demo: "https://github.com/Ameri50/biblia-version-android",
+    image: "/assets/proyecto6.png",
+    color: "from-teal-500 to-green-500"
+  },
+  {
+    title: "BlockDeNotas",
+    description:
+      "Aplicación de notas para organizar apuntes y borradores de forma rápida y sencilla.",
+    technologies: ["Swift", "SwiftUI"],
+    github: "https://github.com/Ameri50/blockdenotas",
+    demo: "https://github.com/Ameri50/blockdenotas",
+    image: "/assets/proyecto7.png",
+    color: "from-yellow-500 to-orange-500"
   }
 ];
  
