@@ -54,7 +54,7 @@ const projects = [
     color: "from-orange-500 to-red-500"
   },
   {
-<<<<<<< HEAD
+
     title: "Biblia RV1909 (iOS)",
     description:
       "App de lectura bíblica offline en SwiftUI, con los 66 libros de la Reina-Valera 1909 organizados por categoría canónica, sistema de notas con inserción de versículos y persistencia con SwiftData.",
@@ -83,7 +83,7 @@ const projects = [
     demo: "https://github.com/Ameri50/blockdenotas",
     image: "/assets/proyecto7.png",
     color: "from-yellow-500 to-orange-500"
-=======
+  
     title: "Proyecto Hackathon",
     description:
       "Proyecto web desarrollado para un hackathon, construido con HTML, CSS y JavaScript vanilla. Presenta una interfaz moderna con múltiples iteraciones de mejora y 19 deployments en producción vía Vercel.",
@@ -102,7 +102,6 @@ const projects = [
     demo: "https://github.com/Ameri50/proyect.personal",
     image: "/assets/programar.png",
     color: "from-cyan-500 to-blue-500"
->>>>>>> 73b5fc66cf4e0fe55d1339b2d1efd1209c6a8081
   }
 ];
 
