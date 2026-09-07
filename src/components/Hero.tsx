@@ -13,66 +13,90 @@ const Hero = () => {
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-glow-secondary/15 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
       </div>
 
-      <div className="section-container relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8"
-        >
-          <Sparkles className="w-4 h-4 text-primary" />
-          <span className="text-sm text-muted-foreground">
-            Disponible para proyectos
-          </span>
-        </motion.div>
+      <div className="section-container relative z-10">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.85fr)]">
+          <div className="text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8"
+            >
+              <Sparkles className="w-4 h-4 text-primary" />
+              <span className="text-sm text-muted-foreground">
+                Disponible para proyectos
+              </span>
+            </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
-        >
-          <span className="text-foreground">Moises</span>{" "}
-          <span className="gradient-text">Rojas</span>
-        </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
+            >
+              <span className="text-foreground">Moises</span>{" "}
+              <span className="gradient-text">Rojas</span>
+            </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-xl md:text-2xl text-muted-foreground mb-4 font-light"
-        >
-          Desarrollador de apps móviles y sitios web modernos
-        </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-xl md:text-2xl text-muted-foreground mb-4 font-light"
+            >
+              Desarrollador de apps móviles y sitios web modernos
+            </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="text-lg text-muted-foreground/70 mb-12 max-w-xl mx-auto"
-        >
-          Apps y webs pensadas para usuarios reales y negocios reales
-        </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="text-lg text-muted-foreground/70 mb-12 max-w-xl mx-auto lg:mx-0"
+            >
+              Apps y webs pensadas para usuarios reales y negocios reales
+            </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <a
-            href="#projects"
-            className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-medium hover:opacity-90 transition-all duration-300 glow-effect"
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+            >
+              <a
+                href="#projects"
+                className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-medium hover:opacity-90 transition-all duration-300 glow-effect"
+              >
+                Ver proyectos
+              </a>
+              <a
+                href="#contact"
+                className="px-8 py-4 glass-card text-foreground rounded-xl font-medium hover-glow"
+              >
+                Contactar
+              </a>
+            </motion.div>
+          </div>
+
+          <motion.a
+            href="https://drive.google.com/file/d/1Z30fW9ZEsDrHTmZ7MREDyrsrIqR_WkcL/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="group relative mx-auto block w-full max-w-md overflow-hidden rounded-2xl border border-border/60 bg-card/50 p-3 shadow-2xl shadow-primary/10 transition-transform duration-300 hover:-translate-y-2 lg:mx-0"
+            aria-label="Abrir documento en Google Drive"
           >
-            Ver proyectos
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-4 glass-card text-foreground rounded-xl font-medium hover-glow"
-          >
-            Contactar
-          </a>
-        </motion.div>
+            <img
+              src="/assets/hero-proyecto.jpg"
+              alt="Documento destacado de Moises Rojas"
+              className="h-[min(58vh,560px)] w-full rounded-xl bg-white object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            <span className="absolute bottom-6 left-6 rounded-full bg-background/80 px-4 py-2 text-sm text-foreground backdrop-blur-md">
+              Ver documento completo
+            </span>
+          </motion.a>
+        </div>
 
         <motion.div
           initial={{ opacity: 0 }}
