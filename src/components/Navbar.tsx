@@ -5,6 +5,7 @@ import { Search, X, Sun, Moon, Command, ExternalLink, Menu } from "lucide-react"
 const navItems = [
   { label: "Inicio", href: "#hero", icon: "🏠" },
   { label: "Sobre mí", href: "#about", icon: "👤" },
+  { label: "Demo", href: "#demos", icon: "🚀" },
   { label: "Proyectos", href: "#projects", icon: "💼" },
   { label: "Educación", href: "#education", icon: "🎓" },
   { label: "Habilidades", href: "#skills", icon: "⚡" },
@@ -14,6 +15,7 @@ const navItems = [
 const searchSections = [
   { label: "Inicio", href: "#hero", keywords: ["inicio", "hero", "home"], icon: "🏠" },
   { label: "Sobre mí", href: "#about", keywords: ["sobre", "mí", "about", "perfil", "biografía"], icon: "👤" },
+  { label: "Demo", href: "#demos", keywords: ["demo", "demos", "en vivo", "live"], icon: "🚀" },
   { label: "Proyectos", href: "#projects", keywords: ["proyecto", "proyectos", "work", "portfolio"], icon: "💼" },
   { label: "Educación", href: "#education", keywords: ["educación", "educacion", "estudio", "formación"], icon: "🎓" },
   { label: "Habilidades", href: "#skills", keywords: ["habilidad", "habilidades", "skills", "tecnologías"], icon: "⚡" },
