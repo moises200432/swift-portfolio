@@ -2,7 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ExternalLink, Github } from "lucide-react";
 
-const projects = [
+export const projects = [
   {
     title: "E-Commerce App",
     description:
@@ -30,6 +30,7 @@ const projects = [
     technologies: ["React", "JavaScript", "CSS3"],
     github: "https://github.com/Ameri50/primera-aplicaciond-de-10",
     demo: "https://micodigo.onrender.com/",
+    webDemo: true,
     image: "/assets/proyecto2.png",
     color: "from-blue-500 to-cyan-500"
   },
@@ -40,6 +41,7 @@ const projects = [
     technologies: ["React", "Node.js", "Express", "MongoDB"],
     github: "https://github.com/Ameri50/peru-logistics-express",
     demo: "https://peru-logistics-express-lima06.onrender.com/",
+    webDemo: true,
     image: "/assets/proyecto3.png",
     color: "from-green-500 to-emerald-500"
   },
@@ -50,6 +52,7 @@ const projects = [
     technologies: ["JavaScript", "HTML5", "Tailwind CSS"],
     github: "https://github.com/DukoMaster2004/micodigo",
     demo: "https://micodigo.onrender.com/",
+    webDemo: true,
     image: "/assets/proyecto4.png",
     color: "from-orange-500 to-red-500"
   },
@@ -90,6 +93,7 @@ const projects = [
     technologies: ["HTML5", "CSS3", "JavaScript"],
     github: "https://github.com/Ameri50/proyecto-hackathon",
     demo: "https://proyecto-hackathon-x7kz.vercel.app",
+    webDemo: true,
     image: "/assets/HACKATON.png",
     color: "from-yellow-500 to-orange-500"
   },

@@ -1,52 +1,16 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ExternalLink, Play, RotateCcw } from "lucide-react";
+import { projects } from "./Projects";
 
-const webDemos = [
-  {
-    title: "Peru Logistics Express",
-    description:
-      "Plataforma logística para el seguimiento y gestión de envíos en Perú, con visualización de rutas y estados de entrega.",
-    url: "https://peru-logistics-express-lima06.onrender.com/",
-    image: "/assets/proyecto3.png",
-    technologies: ["React", "Node.js", "Express", "MongoDB"],
-    color: "from-green-500 to-emerald-500"
-  },
-  {
-    title: "Task Manager App",
-    description:
-      "Aplicación de gestión de tareas para organizar pendientes, desarrollada con React como una de las primeras apps interactivas.",
-    url: "https://micodigo.onrender.com/",
-    image: "/assets/proyecto2.png",
-    technologies: ["React", "JavaScript", "CSS3"],
-    color: "from-blue-500 to-cyan-500"
-  },
-  {
-    title: "Mi Código Dashboard",
-    description:
-      "Panel de administración y gestión de datos con visualización estructurada de información y control de usuarios.",
-    url: "https://micodigo.onrender.com/",
-    image: "/assets/proyecto4.png",
-    technologies: ["JavaScript", "HTML5", "Tailwind CSS"],
-    color: "from-orange-500 to-red-500"
-  },
-  {
-    title: "Proyecto Hackathon",
-    description:
-      "Proyecto web para un hackathon con HTML, CSS y JavaScript vanilla, con múltiples iteraciones y 19 deployments en Vercel.",
-    url: "https://proyecto-hackathon-x7kz.vercel.app",
-    image: "/assets/HACKATON.png",
-    technologies: ["HTML5", "CSS3", "JavaScript"],
-    color: "from-yellow-500 to-orange-500"
-  }
-];
+const webDemos = projects.filter((project) => project.webDemo);
 
 const DemoCard = ({ demo, index }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [iframeError, setIframeError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const hostname = new URL(demo.url).hostname;
+  const hostname = new URL(demo.demo).hostname;
 
   return (
     <motion.article
@@ -118,7 +82,7 @@ const DemoCard = ({ demo, index }) => {
               <div className="text-4xl">🚫</div>
               <p className="text-sm">Este sitio no permite incrustarse en un iframe</p>
               <a
-                href={demo.url}
+                href={demo.demo}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium"
@@ -130,7 +94,7 @@ const DemoCard = ({ demo, index }) => {
           ) : (
             <>
               <iframe
-                src={demo.url}
+                src={demo.demo}
                 title={`Demo en vivo de ${demo.title}`}
                 className="w-full h-full border-0"
                 loading="lazy"
@@ -156,7 +120,7 @@ const DemoCard = ({ demo, index }) => {
             {demo.title}
           </h3>
           <motion.a
-            href={demo.url}
+                href={demo.demo}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -2 }}
