@@ -25,3 +25,7 @@ dist-ssr
 
 # Airlock bootstrap
 .windsurf/
+
+# Environment
+.env
+.env.local

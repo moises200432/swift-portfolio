@@ -9,6 +9,7 @@ import Skills from "@/components/Skills";
 import Technologies from "@/components/Technologies";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 
 const Index = () => {
   return (
@@ -24,6 +25,7 @@ const Index = () => {
       <Technologies />
       <Contact />
       <Footer />
+      <ChatWidget />
     </div>
   );
 };
