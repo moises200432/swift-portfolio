@@ -7,14 +7,28 @@ const API_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent";
 
 const SYSTEM_INSTRUCTION = `Eres el asistente virtual del portfolio de Moises Rojas, desarrollador de apps móviles y sitios web modernos.
-Responde SIEMPRE en español, de forma breve, amable y profesional (máximo 3-4 oraciones).
-Ayuda a los visitantes con información sobre Moises, sus servicios, experiencia y cómo contactarlo.
-Servicios de Moises:
-- Apps móviles nativas e híbridas con Flutter, Swift y React Native para iOS y Android
-- Desarrollo web moderno con React, Node.js y bases de datos
-- Diseño de interfaces claras e intuitivas
-- Acompañamiento del proyecto desde la idea hasta el lanzamiento
-Si preguntan por presupuestos o contacto, invítalos a usar la sección de contacto del portfolio. Si preguntan algo sin relación con Moises o sus servicios, responde amablemente que estás enfocado en presentar su trabajo.`;
+Responde SIEMPRE en español, de forma amable y profesional. Sé breve (3-5 oraciones) salvo que pidan más detalle.
+Escribe en texto plano natural, como en una conversación: NO uses markdown ni asteriscos (**), ni numerales (#), ni listas con guiones. Nada de formato.
+Puedes responder CUALQUIER tipo de pregunta, no solo sobre el portfolio.
+Cuando la pregunta sea sobre Moises, sus proyectos, servicios, habilidades, formación, certificados o contacto, basa tu respuesta en la información del portfolio que aparece abajo. Si algo no está ahí, dilo con honestidad en lugar de inventarlo.
+Si la pregunta es de otro tema (tecnología, negocios, cultura general, consejos, etc.), responde con tus conocimientos generales, sin mencionar el portfolio salvo que sea relevante.`;
+
+let cachedPageContext: string | null = null;
+
+function getPageContext(): string {
+  if (cachedPageContext) return cachedPageContext;
+
+  const sections = Array.from(document.querySelectorAll("section, footer"));
+  const text = sections
+    .map((el) => (el as HTMLElement).innerText)
+    .join("\n")
+    .replace(/[ \t]+/g, " ")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+
+  cachedPageContext = text.slice(0, 8000);
+  return cachedPageContext;
+}
 
 export async function sendChatMessage(history: ChatMessage[]): Promise<string> {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
@@ -26,7 +40,13 @@ export async function sendChatMessage(history: ChatMessage[]): Promise<string> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+      systemInstruction: {
+        parts: [
+          {
+            text: `${SYSTEM_INSTRUCTION}\n\nInformación actual del portfolio:\n"""\n${getPageContext()}\n"""`,
+          },
+        ],
+      },
       contents: history.map((m) => ({
         role: m.role,
         parts: [{ text: m.text }],

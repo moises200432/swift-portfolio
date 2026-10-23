@@ -66,4 +66,14 @@ export interface Certificate {
       description: "Acredita la culminación de seis ciclos de estudios y el egreso de la carrera de Diseño y Desarrollo de Software.",
       image: "/assets/constanciadeegresado.png",
     },
+    {
+      id: 7,
+      type: "certificado",
+      title: "IA Estratégica para Profesionales",
+      institution: "Enter Tech School",
+      date: "Octubre 2026",
+      description: "Curso de 36 horas adquiriendo competencias esenciales en las principales herramientas de IA del mercado.",
+      skills: ["Claude", "Gemini", "Perplexity", "Make", "v0", "OpenRouter", "GitHub"],
+      image: "/assets/certificadoiaenter.png",
+    },
   ]; 

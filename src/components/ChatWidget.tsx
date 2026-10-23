@@ -5,7 +5,7 @@ import { sendChatMessage, type ChatMessage } from "@/lib/gemini";
 
 const WELCOME: ChatMessage = {
   role: "model",
-  text: "¡Hola! Soy el asistente IA de Moises. Pregúntame sobre sus servicios, proyectos o cómo trabajar con él.",
+  text: "¡Hola! Soy el asistente IA de Moises. Pregúntame sobre sus proyectos, servicios o formación, o sobre cualquier tema que te interese.",
 };
 
 const ChatWidget = () => {
