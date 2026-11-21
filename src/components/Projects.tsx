@@ -4,6 +4,34 @@ import { ExternalLink, Github } from "lucide-react";
 
 export const projects = [
   {
+    title: "BatteryLink Web",
+    description:
+      "Panel web en React que lee la batería real del navegador con la Battery Status API: nivel, tendencia, historial de recargas, alarma al 100 % y sincronización con Google en Firestore. Publicada en Vercel.",
+    technologies: ["React", "Vite", "Firebase", "Vercel"],
+    github: "https://github.com/Ameri50/bateriapagina",
+    demo: "https://bateriapagina.vercel.app",
+    webDemo: true,
+    screenshots: [
+      { src: "/assets/bateriapagina-inicio.jpg", label: "Inicio" },
+      { src: "/assets/bateriapagina-historial.jpg", label: "Historial" },
+      { src: "/assets/bateriapagina-ajustes.jpg", label: "Ajustes" },
+      { src: "/assets/bateriapagina-oscuro.jpg", label: "Modo oscuro" },
+      { src: "/assets/bateriapagina-movil.jpg", label: "Móvil", portrait: true }
+    ],
+    image: "/assets/bateriapagina-card.jpg",
+    color: "from-emerald-500 to-teal-500"
+  },
+  {
+    title: "BatteryLink (macOS + iOS)",
+    description:
+      "Monitor de batería real para Mac con app para iPhone/iPad en SwiftUI. El Mac lee la batería con IOKit y la transmite por la red local con Bonjour y cifrado AES-GCM; la app iOS muestra salud, ciclos y consumo.",
+    technologies: ["Swift", "SwiftUI", "IOKit", "Network.framework"],
+    github: "https://github.com/Ameri50/aplicacion-de-bateria",
+    demo: "https://github.com/Ameri50/aplicacion-de-bateria",
+    image: "/assets/batterylink-app.jpg",
+    color: "from-teal-500 to-cyan-500"
+  },
+  {
     title: "E-Commerce App",
     description:
       "Una aplicación móvil de comercio electrónico desarrollada con Flutter. Incluye funcionalidades de navegación de productos, carrito de compras y una interfaz de usuario moderna.",
@@ -30,7 +58,6 @@ export const projects = [
     technologies: ["React", "JavaScript", "CSS3"],
     github: "https://github.com/Ameri50/primera-aplicaciond-de-10",
     demo: "https://micodigo.onrender.com/",
-    webDemo: true,
     image: "/assets/proyecto2.png",
     color: "from-blue-500 to-cyan-500"
   },
@@ -41,7 +68,6 @@ export const projects = [
     technologies: ["React", "Node.js", "Express", "MongoDB"],
     github: "https://github.com/Ameri50/peru-logistics-express",
     demo: "https://peru-logistics-express-lima06.onrender.com/",
-    webDemo: true,
     image: "/assets/proyecto3.png",
     color: "from-green-500 to-emerald-500"
   },
@@ -52,7 +78,6 @@ export const projects = [
     technologies: ["JavaScript", "HTML5", "Tailwind CSS"],
     github: "https://github.com/DukoMaster2004/micodigo",
     demo: "https://micodigo.onrender.com/",
-    webDemo: true,
     image: "/assets/proyecto4.png",
     color: "from-orange-500 to-red-500"
   },
@@ -93,7 +118,6 @@ export const projects = [
     technologies: ["HTML5", "CSS3", "JavaScript"],
     github: "https://github.com/Ameri50/proyecto-hackathon",
     demo: "https://proyecto-hackathon-x7kz.vercel.app",
-    webDemo: true,
     image: "/assets/HACKATON.png",
     color: "from-yellow-500 to-orange-500"
   },

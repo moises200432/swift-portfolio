@@ -1,16 +1,29 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { ExternalLink, Play, RotateCcw } from "lucide-react";
+import { Camera, ExternalLink, MonitorPlay, RotateCcw } from "lucide-react";
 import { projects } from "./Projects";
 
-const webDemos = projects.filter((project) => project.webDemo);
+const demos = projects.filter((project) => project.webDemo);
+
+const screenshotList = (demo) =>
+  demo.screenshots ?? [{ src: demo.image, label: demo.title }];
 
 const DemoCard = ({ demo, index }) => {
+  const shots = screenshotList(demo);
+  const [activeShot, setActiveShot] = useState(0);
+  const [isLive, setIsLive] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [iframeError, setIframeError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const hostname = new URL(demo.demo).hostname;
+  const featured = shots.length > 1;
+
+  const openLive = () => {
+    setIsLive(true);
+    setIsLoaded(false);
+    setIframeError(false);
+  };
 
   return (
     <motion.article
@@ -18,7 +31,7 @@ const DemoCard = ({ demo, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group flex flex-col"
+      className={`group flex flex-col min-w-0 ${featured ? "md:col-span-2" : ""}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -39,78 +52,134 @@ const DemoCard = ({ demo, index }) => {
             <span className="text-emerald-500">🔒</span>
             <span className="truncate">{hostname}</span>
           </div>
+          <a
+            href={demo.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-background/70 border border-border/50 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors"
+          >
+            <ExternalLink className="w-3 h-3" />
+            Vercel
+          </a>
         </div>
 
-        {/* Vista previa / iframe */}
+        {/* Vista previa: captura o página en vivo */}
         <div className="relative aspect-[16/10] bg-muted overflow-hidden">
-          {!isLoaded ? (
+          {isLive ? (
+            iframeError ? (
+              <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-muted-foreground p-6 text-center">
+                <div className="text-4xl">🚫</div>
+                <p className="text-sm">Este sitio no permite incrustarse en un iframe</p>
+                <a
+                  href={demo.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Abrir en pestaña nueva
+                </a>
+              </div>
+            ) : (
+              <>
+                {!isLoaded && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-background/60 backdrop-blur-sm text-muted-foreground text-sm">
+                    Cargando la página en vivo…
+                  </div>
+                )}
+                <iframe
+                  src={demo.demo}
+                  title={`Demo en vivo de ${demo.title}`}
+                  className="w-full h-full border-0"
+                  onLoad={() => setIsLoaded(true)}
+                  onError={() => setIframeError(true)}
+                  allow="fullscreen"
+                />
+                <button
+                  onClick={() => setIsLive(false)}
+                  className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-medium hover:bg-black/80 transition-colors"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Volver a las capturas
+                </button>
+              </>
+            )
+          ) : (
             <button
-              onClick={() => setIsLoaded(true)}
-              className="w-full h-full relative block text-left cursor-pointer"
-              aria-label={`Cargar demo en vivo de ${demo.title}`}
+              onClick={openLive}
+              className={`w-full h-full relative block text-left cursor-pointer ${
+                shots[activeShot].portrait ? "bg-gradient-to-br from-slate-900 via-slate-950 to-black" : ""
+              }`}
+              aria-label={`Ver ${demo.title} en vivo dentro del portafolio`}
             >
               <img
-                src={demo.image}
-                alt={demo.title}
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                src={shots[activeShot].src}
+                alt={`${demo.title} · ${shots[activeShot].label}`}
+                className={
+                  shots[activeShot].portrait
+                    ? "mx-auto h-full w-auto max-w-full object-contain py-6 drop-shadow-2xl"
+                    : "w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                }
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
 
-              {/* Botón play */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
-                  animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+                  animate={isHovered ? { scale: 1.06 } : { scale: 1 }}
                   transition={{ duration: 0.3 }}
                   className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-white text-sm font-semibold shadow-xl"
                 >
-                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500">
-                    <Play className="w-4 h-4 fill-white text-white ml-0.5" />
+                  <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500">
+                    <MonitorPlay className="w-4 h-4 text-white" />
                   </span>
-                  Ver demo en vivo
+                  Ver la página en vivo aquí
                 </motion.div>
               </div>
 
-              <div className="absolute bottom-3 left-4 right-4">
-                <span className="px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md text-[10px] text-white/90 border border-white/20">
-                  ▶ Click para cargar la vista previa
+              <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between gap-3">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md text-[10px] text-white/90 border border-white/20">
+                  <Camera className="w-3 h-3" />
+                  Captura · {shots[activeShot].label}
+                </span>
+                <span className="hidden sm:inline px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md text-[10px] text-white/80 border border-white/20">
+                  Se abre dentro del portafolio
                 </span>
               </div>
             </button>
-          ) : iframeError ? (
-            <div className="w-full h-full flex flex-col items-center justify-center gap-3 text-muted-foreground p-6 text-center">
-              <div className="text-4xl">🚫</div>
-              <p className="text-sm">Este sitio no permite incrustarse en un iframe</p>
-              <a
-                href={demo.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Abrir demo en pestaña nueva
-              </a>
-            </div>
-          ) : (
-            <>
-              <iframe
-                src={demo.demo}
-                title={`Demo en vivo de ${demo.title}`}
-                className="w-full h-full border-0"
-                loading="lazy"
-                onError={() => setIframeError(true)}
-                allow="fullscreen"
-              />
-              <button
-                onClick={() => setIsLoaded(false)}
-                className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-medium hover:bg-black/80 transition-colors"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                Reiniciar
-              </button>
-            </>
           )}
         </div>
+
+        {/* Miniaturas de capturas */}
+        {featured && (
+          <div className="flex gap-3 p-4 bg-secondary/30 border-t border-border overflow-x-auto min-w-0">
+            {shots.map((shot, i) => (
+              <button
+                key={shot.src}
+                onClick={() => {
+                  setActiveShot(i);
+                  setIsLive(false);
+                }}
+                aria-label={`Ver captura ${shot.label}`}
+                className={`relative flex-none w-28 sm:w-36 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                  !isLive && activeShot === i
+                    ? "border-primary shadow-lg shadow-primary/25"
+                    : "border-border/60 opacity-70 hover:opacity-100 hover:border-border"
+                }`}
+              >
+                <img
+                  src={shot.src}
+                  alt={shot.label}
+                  className="w-full h-20 sm:h-24 object-cover object-top"
+                  loading="lazy"
+                />
+                <span className="absolute bottom-0 inset-x-0 bg-black/65 backdrop-blur-sm text-[10px] text-white/90 py-1 text-center truncate px-1">
+                  {shot.label}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
       </motion.div>
 
       {/* Información */}
@@ -120,7 +189,7 @@ const DemoCard = ({ demo, index }) => {
             {demo.title}
           </h3>
           <motion.a
-                href={demo.demo}
+            href={demo.demo}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05, y: -2 }}
@@ -128,7 +197,7 @@ const DemoCard = ({ demo, index }) => {
             className="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-secondary hover:bg-accent text-foreground text-xs font-medium border border-border hover:border-primary/50 transition-all duration-300"
           >
             <ExternalLink className="w-3.5 h-3.5" />
-            Abrir
+            Abrir en Vercel
           </motion.a>
         </div>
 
@@ -186,12 +255,12 @@ const Demos = () => {
           </h2>
 
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Explora las aplicaciones web funcionando en tiempo real, directamente desde el navegador
+            Páginas publicadas en Vercel, con sus capturas y la opción de abrirlas en vivo sin salir del portafolio
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-10">
-          {webDemos.map((demo, index) => (
+          {demos.map((demo, index) => (
             <DemoCard key={demo.title} demo={demo} index={index} />
           ))}
         </div>

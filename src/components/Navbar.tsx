@@ -24,6 +24,24 @@ const searchSections = [
 
 const projects = [
   {
+    id: "batterylink-web",
+    title: "BatteryLink Web",
+    description: "Panel web en React que lee la batería real del navegador con la Battery Status API: nivel, tendencia, historial de recargas, alarma al 100 % y sincronización con Google en Firestore. Publicada en Vercel.",
+    technologies: ["React", "Vite", "Firebase", "Vercel"],
+    github: "https://github.com/Ameri50/bateriapagina",
+    demo: "https://bateriapagina.vercel.app",
+    color: "from-emerald-500 to-teal-500",
+  },
+  {
+    id: "batterylink-app",
+    title: "BatteryLink (macOS + iOS)",
+    description: "Monitor de batería real para Mac con app para iPhone/iPad en SwiftUI. El Mac lee la batería con IOKit y la transmite por la red local con Bonjour y cifrado AES-GCM; la app iOS muestra salud, ciclos y consumo.",
+    technologies: ["Swift", "SwiftUI", "IOKit", "Network.framework"],
+    github: "https://github.com/Ameri50/aplicacion-de-bateria",
+    demo: "https://github.com/Ameri50/aplicacion-de-bateria",
+    color: "from-teal-500 to-cyan-500",
+  },
+  {
     id: "ecommerce",
     title: "E-Commerce App",
     description: "Una aplicación móvil de comercio electrónico desarrollada con Flutter. Incluye funcionalidades de navegación de productos, carrito de compras y una interfaz de usuario moderna.",
