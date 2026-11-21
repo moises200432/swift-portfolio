@@ -105,6 +105,31 @@
   .section-subtitle {
     @apply text-muted-foreground text-lg mb-12;
   }
+  .section-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent);
+  }
+  .section-divider-dot {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 1px;
+    transform: rotate(45deg);
+    background: hsl(var(--primary) / 0.8);
+    box-shadow: 0 0 16px hsl(var(--primary) / 0.6);
+  }
 }
 
 @layer utilities {
