@@ -131,7 +131,7 @@ const Navbar = () => {
 
   // Cierra el menú móvil al cambiar tamaño a desktop
   useEffect(() => {
-    const handleResize = () => { if (window.innerWidth >= 768) setIsMobileOpen(false); };
+    const handleResize = () => { if (window.innerWidth >= 1024) setIsMobileOpen(false); };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -199,7 +199,7 @@ const Navbar = () => {
           isScrolled ? "bg-background/80 backdrop-blur-2xl border-b border-border/40 shadow-lg shadow-black/5 py-3" : "py-5"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-6">
           {/* Logo */}
           <motion.a href="#hero" className="flex items-center gap-2 group" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <img
@@ -210,14 +210,14 @@ const Navbar = () => {
           </motion.a>
 
           {/* Nav links — solo desktop */}
-          <ul className="hidden md:flex items-center gap-1">
+          <ul className="hidden lg:flex items-center gap-2 xl:gap-6">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
                   onClick={() => setActiveNav(item.href)}
-                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200
-                    ${activeNav === item.href ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`relative block px-3 py-2 xl:px-5 text-sm font-medium rounded-lg whitespace-nowrap transition-all duration-200
+                    ${activeNav === item.href ? "text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"}`}
                 >
                   {activeNav === item.href && (
                     <motion.span
@@ -270,7 +270,7 @@ const Navbar = () => {
             {/* Contact — solo desktop */}
             <motion.a
               href="#contact"
-              className="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:brightness-110"
+              className="hidden xl:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:brightness-110"
               whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.96 }}
             >
               Contactar
@@ -280,7 +280,7 @@ const Navbar = () => {
             <motion.button
               onClick={() => setIsMobileOpen((p) => !p)}
               aria-label="Abrir menú"
-              className="md:hidden p-2.5 rounded-xl border border-border/50 bg-secondary/60 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all duration-200"
+              className="lg:hidden p-2.5 rounded-xl border border-border/50 bg-secondary/60 hover:bg-secondary text-muted-foreground hover:text-foreground transition-all duration-200"
               whileTap={{ scale: 0.9 }}
             >
               <AnimatePresence mode="wait">
@@ -306,7 +306,7 @@ const Navbar = () => {
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
               onClick={() => setIsMobileOpen(false)}
             />
 
@@ -316,10 +316,10 @@ const Navbar = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed top-[72px] left-4 right-4 z-40 md:hidden"
+              className="fixed top-[72px] left-4 right-4 z-40 lg:hidden"
             >
               <div className="bg-background/95 backdrop-blur-2xl border border-border rounded-2xl shadow-2xl shadow-black/20 overflow-hidden">
-                <nav className="p-2">
+                <nav className="p-2 space-y-1">
                   {navItems.map((item, i) => (
                     <motion.a
                       key={item.href}
