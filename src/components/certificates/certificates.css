@@ -257,3 +257,409 @@
   font-size: 0.8rem;
   color: hsl(var(--muted-foreground));
 }
+/* ── Quick view ── */
+.certs-quickview {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto 4.5rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -50px rgba(0, 0, 0, 0.6);
+}
+
+.certs-quickview-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 1.75rem 1.25rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
+}
+
+.certs-quickview-head .certs-eyebrow {
+  margin-bottom: 0.75rem;
+}
+
+.certs-quickview-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+}
+
+.certs-quickview-sub {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+  max-width: 560px;
+}
+
+.cert-qv-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.1);
+  border: 1px solid hsl(var(--primary) / 0.3);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  white-space: nowrap;
+}
+
+.certs-quickview-body {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  align-items: stretch;
+  min-width: 0;
+}
+
+.cert-qv-list {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid hsl(var(--border) / 0.7);
+  background: hsl(var(--secondary) / 0.25);
+}
+
+.cert-qv-list-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 0.75rem;
+}
+
+.cert-qv-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.cert-qv-item:hover {
+  background: hsl(var(--secondary) / 0.7);
+}
+
+.cert-qv-item.is-active {
+  background: hsl(var(--primary) / 0.08);
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+.cert-qv-thumb {
+  width: 58px;
+  height: 44px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid hsl(var(--border));
+  background: #fff;
+}
+
+.cert-qv-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.cert-qv-item-inst {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cert-qv-item-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: hsl(var(--foreground));
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cert-qv-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.cert-qv-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.6rem 0.8rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
+  background: hsl(var(--secondary) / 0.35);
+}
+
+.cert-qv-group {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.cert-qv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  height: 32px;
+  min-width: 32px;
+  padding: 0 0.5rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  background: hsl(var(--background) / 0.7);
+  color: hsl(var(--foreground));
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.cert-qv-btn:hover:not(:disabled) {
+  border-color: hsl(var(--primary) / 0.6);
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.08);
+}
+
+.cert-qv-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cert-qv-counter,
+.cert-qv-zoom {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: hsl(var(--muted-foreground));
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.cert-qv-counter { min-width: 48px; }
+.cert-qv-zoom { min-width: 44px; }
+
+.cert-qv-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: clamp(320px, 58vh, 520px);
+  padding: 1.25rem;
+  overflow: hidden;
+  background-color: hsl(var(--muted) / 0.6);
+  background-image: radial-gradient(hsl(var(--border) / 0.8) 1px, transparent 1px);
+  background-size: 18px 18px;
+  user-select: none;
+}
+
+.cert-qv-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.65);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.cert-qv-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid hsl(var(--border) / 0.7);
+}
+
+.cert-qv-current {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.cert-qv-current-inst {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+}
+
+.cert-qv-current-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.cert-qv-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.cert-qv-hint {
+  font-size: 0.68rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.cert-qv-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: hsl(var(--primary));
+  text-decoration: none;
+  border-bottom: 1px solid hsl(var(--primary) / 0.35);
+}
+
+.cert-qv-file:hover { border-color: hsl(var(--primary)); }
+
+/* ── Expanded quick view ── */
+.cert-qv-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.2s ease;
+}
+
+.cert-qv-expanded {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1100px;
+  max-height: calc(100vh - 2rem);
+  overflow: hidden;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 16px;
+  animation: scaleIn 0.2s ease;
+}
+
+.cert-qv-expanded-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
+}
+
+.cert-qv-stage--expanded {
+  height: min(62vh, 620px);
+}
+
+/* ── Modal PDF link ── */
+.cert-modal-actions {
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem 1rem;
+}
+
+.cert-modal-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: hsl(var(--primary-foreground));
+  background: hsl(var(--primary));
+  border-radius: 8px;
+  padding: 0.55rem 0.9rem;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.cert-modal-file:hover { opacity: 0.88; }
+
+@media (max-width: 900px) {
+  .certs-quickview-head {
+    padding: 1.25rem 1rem 1rem;
+  }
+
+  .certs-quickview-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cert-qv-list {
+    position: static;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid hsl(var(--border) / 0.7);
+  }
+
+  .cert-qv-list-inner {
+    position: static;
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.6rem;
+    scroll-snap-type: x proximity;
+  }
+
+  .cert-qv-item {
+    width: 210px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .cert-qv-stage {
+    height: 380px;
+    padding: 0.9rem;
+  }
+
+  .cert-qv-stage--expanded {
+    height: 56vh;
+  }
+
+  .cert-qv-toolbar {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .cert-qv-hint { display: none; }
+}
+
+@media (max-width: 480px) {
+  .cert-qv-item { width: 180px; }
+  .cert-qv-stage { height: 330px; }
+  .cert-qv-btn { height: 30px; min-width: 30px; padding: 0 0.4rem; }
+  .cert-qv-btn-label { display: none; }
+  .cert-qv-footer { padding: 0.75rem; }
+}

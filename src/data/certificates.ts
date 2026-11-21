@@ -7,6 +7,7 @@ export interface Certificate {
     description: string;
     skills?: string[];
     image: string;
+    file?: string;
   }
   
   export const certificates: Certificate[] = [
@@ -75,5 +76,26 @@ export interface Certificate {
       description: "Curso de 36 horas adquiriendo competencias esenciales en las principales herramientas de IA del mercado.",
       skills: ["Claude", "Gemini", "Perplexity", "Make", "v0", "OpenRouter", "GitHub"],
       image: "/assets/certificadoiaenter.png",
+    },
+    {
+      id: 8,
+      type: "certificado",
+      title: "Marketing Digital",
+      institution: "IDAT – Intercorp Formación Continua",
+      date: "Noviembre 2026",
+      description: "Certificado del curso Marketing Digital, desarrollado del 05 al 28 de octubre de 2026 con un total de 32 horas académicas.",
+      skills: ["Marketing digital"],
+      image: "/assets/certificado-marketing-digital-idat.jpg",
+      file: "/assets/certificado-marketing-digital-idat.pdf",
+    },
+    {
+      id: 9,
+      type: "constancia",
+      title: "Nota final – Marketing Digital",
+      institution: "IDAT – EVA",
+      date: "Octubre 2026",
+      description: "Constancia del registro de la evaluación final del programa Marketing Digital, con una nota de 19.",
+      image: "/assets/constancia-nota-marketing-digital-idat.jpg",
+      file: "/assets/constancia-nota-marketing-digital-idat.pdf",
     },
   ]; 

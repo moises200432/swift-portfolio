@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FileText } from "lucide-react";
 import { Certificate } from "@/data/certificates";
 
 interface Props {
@@ -57,6 +58,13 @@ export default function CertificateCard({ cert, index }: Props) {
             <button className="cert-modal-close" onClick={() => setShowModal(false)}>✕</button>
             <img src={cert.image} alt={cert.title} className="cert-modal-img" />
             <p className="cert-modal-caption">{cert.title} — {cert.institution}</p>
+            {cert.file && (
+              <div className="cert-modal-actions">
+                <a className="cert-modal-file" href={cert.file} target="_blank" rel="noreferrer">
+                  <FileText size={16} /> Abrir documento PDF
+                </a>
+              </div>
+            )}
           </div>
         </div>
       )}
