@@ -57,28 +57,44 @@ export const projects = [
       "Aplicación de gestión de tareas que permite a los usuarios organizar sus pendientes. Desarrollada como una de las primeras aplicaciones interactivas utilizando React.",
     technologies: ["React", "JavaScript", "CSS3"],
     github: "https://github.com/Ameri50/primera-aplicaciond-de-10",
-    demo: "https://micodigo.onrender.com/",
+    demo: "https://github.com/Ameri50/primera-aplicaciond-de-10",
     image: "/assets/proyecto2.png",
     color: "from-blue-500 to-cyan-500"
   },
   {
     title: "Peru Logistics Express",
     description:
-      "Plataforma logística diseñada para el seguimiento y gestión de envíos en Perú. Optimiza la visualización de rutas y estados de entrega para operadores.",
-    technologies: ["React", "Node.js", "Express", "MongoDB"],
+      "Sitio corporativo de HURIANKA S.A.C., empresa de transporte y logística de carga en Perú: servicios, flota, tecnología, cobertura nacional y formulario de cotización. Publicado en Vercel.",
+    technologies: ["React", "Vite", "Tailwind CSS", "Vercel"],
     github: "https://github.com/Ameri50/peru-logistics-express",
-    demo: "https://peru-logistics-express-lima06.onrender.com/",
-    image: "/assets/proyecto3.png",
+    demo: "https://peru-logistics-express.vercel.app",
+    webDemo: true,
+    screenshots: [
+      { src: "/assets/peru-logistica-inicio.jpg", label: "Inicio" },
+      { src: "/assets/peru-logistica-servicios.jpg", label: "Servicios" },
+      { src: "/assets/peru-logistica-flota.jpg", label: "Flota" },
+      { src: "/assets/peru-logistica-contacto.jpg", label: "Contacto" },
+      { src: "/assets/peru-logistica-movil.jpg", label: "Móvil", portrait: true }
+    ],
+    image: "/assets/peru-logistica-inicio.jpg",
     color: "from-green-500 to-emerald-500"
   },
   {
-    title: "Mi Código Dashboard",
+    title: "IB Math Banda 7",
     description:
-      "Panel de administración y gestión de datos. Enfocado en la visualización estructurada de información y control de usuarios para aplicaciones web.",
-    technologies: ["JavaScript", "HTML5", "Tailwind CSS"],
+      "Sitio web de clases de Matemáticas IB (Bachillerato Internacional): servicios, metodología, certificados, galería de videos y contacto directo por WhatsApp. Publicado en Vercel.",
+    technologies: ["React", "Vite", "Tailwind CSS", "Vercel"],
     github: "https://github.com/DukoMaster2004/micodigo",
-    demo: "https://micodigo.onrender.com/",
-    image: "/assets/proyecto4.png",
+    demo: "https://micodigo.vercel.app",
+    webDemo: true,
+    screenshots: [
+      { src: "/assets/ib-math-inicio.jpg", label: "Inicio" },
+      { src: "/assets/ib-math-servicios.jpg", label: "Servicios" },
+      { src: "/assets/ib-math-certificados.jpg", label: "Certificados" },
+      { src: "/assets/ib-math-formulario.jpg", label: "Formulario" },
+      { src: "/assets/ib-math-movil.jpg", label: "Móvil", portrait: true }
+    ],
+    image: "/assets/ib-math-inicio.jpg",
     color: "from-orange-500 to-red-500"
   },
   {
